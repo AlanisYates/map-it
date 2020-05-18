@@ -1,12 +1,20 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { makeStyles } from "@material-ui/core";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./App.css";
+
+const useStyles = makeStyles((theme) => {});
 
 const App = () => {
+  const classes = useStyles();
   return (
-    <div className="App">
-     <h1>Hello World</h1>
-    </div>
+    <Router>
+      <div style={{ display: "flex" }}>
+        
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
