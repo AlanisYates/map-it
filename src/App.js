@@ -42,7 +42,7 @@ const App = () => {
                 <ListItemIcon>
                   <HomeIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Home"} />
+                <ListItemText primary={"Home Page"} />
               </ListItem>
             </Link>
             <Link to="/about" className={classes.link}>
