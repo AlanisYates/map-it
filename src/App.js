@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from './Components/Layout';
-import About from './Components/About';
+import Map from './Components/Map';
 import Home from './Components/Home';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -12,8 +12,8 @@ const App = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/about">
-            <About />
+          <Route exact path="/map">
+            <Map />
           </Route>
         </Switch>
       </Layout>
