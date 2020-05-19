@@ -1,101 +1,178 @@
-import React from "react";
+import React, { useState } from "react";
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Container,
-  Typography,
-} from "@material-ui/core";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import Box from '@material-ui/core/Box';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Link from '@material-ui/core/Link';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import HomeIcon from "@material-ui/icons/Home";
-import InfoIcon from "@material-ui/icons/Info";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import "./App.css";
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  drawerPaper: { width: "inherit" },
-  link: {
-    textDecoration: "none",
-    color: theme.palette.text.primary,
+  root: {
+    display: "flex",
+  },
+  toolbar: {
+    paddingRight: 24, // keep right padding when drawer closed
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: "none",
+  },
+  title: {
+    flexGrow: 1,
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing(7),
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing(9),
+    },
+  },
+  appBarSpacer: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    height: "100vh",
+    overflow: "auto",
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
+  },
+  fixedHeight: {
+    height: 240,
   },
 }));
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "} {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
 const App = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(true);
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
   return (
-    <Router>
-      <div style={{ display: "flex" }}>
-        <Drawer
-          style={{ width: "220px" }}
-          variant="persistent"
-          anchor="left"
-          open={true}
-          classes={{ paper: classes.drawerPaper }}
-        >
-          <List>
-            <Link to="/" className={classes.link}>
-              <ListItem button>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Home Page"} />
-              </ListItem>
-            </Link>
-            <Link to="/about" className={classes.link}>
-              <ListItem button>
-                <ListItemIcon>
-                  <InfoIcon />
-                </ListItemIcon>
-                <ListItemText primary={"About"} />
-              </ListItem>
-            </Link>
-          </List>
-        </Drawer>
-        <Switch>
-          <Route exact path="/">
-            <Container>
-              <Typography variant="h3" butterBottom>
-                Home
-              </Typography>
-              <Typography variant="body1" butterBottom>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-                quis tempore ad? Lorem ipsum dolor, sit amet consectetur
-                adipisicing elit. Corrupti distinctio error sapiente nemo
-                nesciunt, quidem quas culpa soluta et esse libero a deserunt
-                aperiam hic quaerat minus dicta? Accusamus, necessitatibus magni
-                reiciendis perferendis voluptates aspernatur nemo cupiditate
-                laborum esse mollitia voluptatem eaque illum iusto deleniti
-                maiores commodi maxime omnis sapiente excepturi a! Expedita
-                porro, unde quae tempore distinctio odio quo accusamus earum
-                aperiam reprehenderit commodi aliquam itaque, doloremque
-                adipisci iusto aspernatur accusantium dolore voluptate debitis
-                repudiandae, cum fuga. Quibusdam nulla fugiat consequuntur
-                eligendi unde voluptatem optio velit, facere numquam. Ea in
-                architecto iusto blanditiis laborum, corrupti consequatur
-                suscipit aspernatur placeat.
-              </Typography>
-            </Container>
-          </Route>
-          <Route exact path="/about">
-            <Container>
-              <Typography variant="h3" butterBottom>
-                About
-              </Typography>
-              <Typography variant="body1" butterBottom>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
-                quis tempore ad? Lorem ipsum dolor, sit amet consectetur
-                adipisicing elit. Corrupti distinctio error sapiente nemo
-          
-              </Typography>
-            </Container>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="absolute"
+        className={clsx(classes.appBar, open && classes.appBarShift)}
+      >
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            className={clsx(
+              classes.menuButton,
+              open && classes.menuButtonHidden
+            )}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
+
+    // <Router>
+    //   {/* <div style={{ display: "flex" }}>
+    //     <Drawer
+    //       style={{ width: "220px" }}
+    //       variant="persistent"
+    //       anchor="left"
+    //       open={true}
+    //       classes={{ paper: classes.drawerPaper }}
+    //     >
+    //       <List>
+    //         <Link to="/" className={classes.link}>
+    //           <ListItem button>
+    //             <ListItemIcon>
+    //               <HomeIcon />
+    //             </ListItemIcon>
+    //             <ListItemText primary={"Home"} />
+    //           </ListItem>
+    //         </Link>
+    //       </List>
+    //     </Drawer>
+    //     <Switch>
+    //       <Route exact path="/"></Route>
+    //     </Switch>
+    //   </div> */}
+    // </Router>
   );
 };
 
